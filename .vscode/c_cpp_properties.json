@@ -10,6 +10,9 @@
             "includePath": [
                 "/home/danny/micros/webplot/include",
                 "/home/danny/micros/webplot/src",
+                "/home/danny/micros/webplot/.pio/libdeps/esp32dev/ServoEasing/src",
+                "/home/danny/.platformio/packages/framework-arduinoespressif32/libraries/Ticker/src",
+                "/home/danny/.platformio/packages/framework-arduinoespressif32/libraries/Wire/src",
                 "/home/danny/micros/webplot/.pio/libdeps/esp32dev/ESP32Servo/src",
                 "/home/danny/.platformio/packages/framework-arduinoespressif32/tools/sdk/include/config",
                 "/home/danny/.platformio/packages/framework-arduinoespressif32/tools/sdk/include/app_trace",
@@ -95,13 +98,11 @@
                 "/home/danny/.platformio/packages/framework-arduinoespressif32/libraries/SPI/src",
                 "/home/danny/.platformio/packages/framework-arduinoespressif32/libraries/SPIFFS/src",
                 "/home/danny/.platformio/packages/framework-arduinoespressif32/libraries/SimpleBLE/src",
-                "/home/danny/.platformio/packages/framework-arduinoespressif32/libraries/Ticker/src",
                 "/home/danny/.platformio/packages/framework-arduinoespressif32/libraries/Update/src",
                 "/home/danny/.platformio/packages/framework-arduinoespressif32/libraries/WebServer/src",
                 "/home/danny/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src",
                 "/home/danny/.platformio/packages/framework-arduinoespressif32/libraries/WiFiClientSecure/src",
                 "/home/danny/.platformio/packages/framework-arduinoespressif32/libraries/WiFiProv/src",
-                "/home/danny/.platformio/packages/framework-arduinoespressif32/libraries/Wire/src",
                 "/home/danny/.platformio/packages/tool-unity",
                 ""
             ],
@@ -110,6 +111,9 @@
                 "path": [
                     "/home/danny/micros/webplot/include",
                     "/home/danny/micros/webplot/src",
+                    "/home/danny/micros/webplot/.pio/libdeps/esp32dev/ServoEasing/src",
+                    "/home/danny/.platformio/packages/framework-arduinoespressif32/libraries/Ticker/src",
+                    "/home/danny/.platformio/packages/framework-arduinoespressif32/libraries/Wire/src",
                     "/home/danny/micros/webplot/.pio/libdeps/esp32dev/ESP32Servo/src",
                     "/home/danny/.platformio/packages/framework-arduinoespressif32/tools/sdk/include/config",
                     "/home/danny/.platformio/packages/framework-arduinoespressif32/tools/sdk/include/app_trace",
@@ -195,13 +199,11 @@
                     "/home/danny/.platformio/packages/framework-arduinoespressif32/libraries/SPI/src",
                     "/home/danny/.platformio/packages/framework-arduinoespressif32/libraries/SPIFFS/src",
                     "/home/danny/.platformio/packages/framework-arduinoespressif32/libraries/SimpleBLE/src",
-                    "/home/danny/.platformio/packages/framework-arduinoespressif32/libraries/Ticker/src",
                     "/home/danny/.platformio/packages/framework-arduinoespressif32/libraries/Update/src",
                     "/home/danny/.platformio/packages/framework-arduinoespressif32/libraries/WebServer/src",
                     "/home/danny/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src",
                     "/home/danny/.platformio/packages/framework-arduinoespressif32/libraries/WiFiClientSecure/src",
                     "/home/danny/.platformio/packages/framework-arduinoespressif32/libraries/WiFiProv/src",
-                    "/home/danny/.platformio/packages/framework-arduinoespressif32/libraries/Wire/src",
                     "/home/danny/.platformio/packages/tool-unity",
                     ""
                 ]
