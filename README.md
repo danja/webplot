@@ -6,6 +6,8 @@ An update to [mini-draw](https://github.com/danja/mini-draw) with improved hardw
 
 ## Status
 
+_for detailed updates see [devlog](https://github.com/danja/webplot/blob/main/docs/devlog.md)_
+
 **2022-01-03** This repo set up. I've got most of the hardware ready from previous experiments. Hopefully I can lift most of the inverse kinematics code from [mini-draw](https://github.com/danja/mini-draw).
 
 _later_...
