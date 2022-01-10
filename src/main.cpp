@@ -1,6 +1,9 @@
 #include <Arduino.h>
 #include <ESP32Servo.h>
 
+#include <Point.h>
+#include <FiveBar.h>
+
 const int GPIO_PEN = 22;
 const int GPIO_LEFT = 19;
 const int GPIO_RIGHT = 23;
@@ -23,18 +26,27 @@ const int slowFactor = 0.01;
 
 ESP32PWM pwm;
 
+unsigned int pauseTime = 200;
+FiveBar fb = FiveBar(10, 10, 10);
+float crossSize = 1;
+
 // forward declarations
 void home();
 void penUp();
 void penDown();
+void drawCross(float x, float y);
+void moveTo(float x, float y, boolean penDown);
+
 void moveServos(int angleLeft, int angleRight);
-static float easeInOut(float t, float b, float c, float d);
+//static float easeInOut(float t, float b, float c, float d);
+void testK();
 
 void setup()
 {
 
   Serial.begin(9600);
   Serial.println("Starting..");
+
   ESP32PWM::allocateTimer(0);
   ESP32PWM::allocateTimer(1);
   ESP32PWM::allocateTimer(2);
@@ -48,41 +60,105 @@ void setup()
   servoLeft.attach(GPIO_LEFT, minUs, maxUs);
   servoRight.attach(GPIO_RIGHT, minUs, maxUs);
 
-  /*
-  for (int pos = 0; pos <= 180; pos++)
+  for (int i = -10; i < 40; i += 5)
   {
-    Serial.println(pos);
-    //  servoPen.write(pos);
-    // servoLeft.write(pos);
-    //  servoRight.write(pos);
-    penUp();
-    delay(2000);
+    for (int j = -20; j < 30; j += 5)
+    {
+      drawCross(i, j);
+    }
   }
-*/
+
+  /*
+  Point p1, p2, servos1, servos2;
+
+  for (int i = 0; i < 100; i++)
+  {
+    Serial.println("===================");
+    penUp();
+    int x1 = rand() % 30 - 10;
+    int y1 = rand() % 20;
+    int x2 = rand() % 30 - 10;
+    int y2 = rand() % 20;
+    Serial.println(x1);
+    Serial.println(y1);
+    Serial.println(x2);
+    Serial.println(y2);
+    Serial.println("-----------------------");
+    p1 = Point(x1, y1);
+    p2 = Point(x1, y1);
+    servos1 = fb.inverseKinematic(p1);
+    servos2 = fb.inverseKinematic(p2);
+    Serial.println(servos1.x);
+    Serial.println(servos1.y);
+    Serial.println(servos2.x);
+    Serial.println(servos2.y);
+    int d = 400;
+
+    if ((servos1.x != -1) && (servos1.y != -1) && (servos2.x != -1) && (servos2.y != -1))
+    {
+      penUp();
+      delay(d);
+      servoLeft.write(servos1.x);
+      servoRight.write(servos1.y);
+      delay(d);
+      penDown();
+      delay(d);
+      servoLeft.write(servos2.x);
+      servoRight.write(servos2.y);
+      delay(d);
+    }
+    else
+    {
+      Serial.println("Error!");
+    }
+  }
   penUp();
+*/
 }
-
-int servo = 0;
-
 /*
 left ~140...180
 right 0..40?
 */
 
+void moveTo(float x, float y, boolean penDown)
+{
+  delay(pauseTime);
+  Point p = Point(x, y);
+  Point servos = fb.inverseKinematic(p);
+  if ((servos.x == -1) || (servos.y == -1))
+  {
+    Serial.print("ERROR : ");
+    Serial.print(x);
+    Serial.print(", ");
+    Serial.print(y);
+    Serial.println("-------");
+    return;
+  }
+  if (penDown)
+  {
+    servoPen.write(PEN_DOWN);
+  }
+  else
+  {
+    servoPen.write(PEN_UP);
+  }
+  delay(pauseTime);
+  servoRight.write(servos.y);
+  servoLeft.write(servos.x);
+  delay(pauseTime);
+}
+
+void drawCross(float x, float y)
+{
+  moveTo(x - crossSize, y - crossSize, false);
+  moveTo(x + crossSize, y + crossSize, true);
+  moveTo(x - crossSize, y + crossSize, false);
+  moveTo(x + crossSize, y - crossSize, true);
+  penUp();
+}
+
 void loop()
 {
-  for (int pos = 85; pos <= 95; pos++)
-  {
-    // servoLeft.write(180 - pos);
-
-    // servoRight.write(90);
-    Serial.println(pos);
-    //  servoPen.write(pos);
-    // servoRight.write(180 - pos);
-    //  servoRight.write(pos);
-    // penUp();
-    delay(1000);
-  }
   /*
   if (Serial.available() > 0)
   {
@@ -125,4 +201,23 @@ void left(int angle)
 
 void moveServos(int angleLeft, int angleRight)
 {
+}
+
+void testK()
+{
+  float x = 5;
+  float y = 15;
+
+  FiveBar fb = FiveBar(10, 10, 10);
+
+  Point pen = Point(5, 15);
+  Point servos = fb.inverseKinematic(pen);
+
+  // Left = 109.32629508411303
+  // Right = 70.67370491588697
+  Serial.println("===================");
+  Serial.print(servos.x);
+  Serial.println("------");
+  Serial.print(servos.y);
+  Serial.println("===================");
 }
