@@ -28,17 +28,17 @@ ESP32PWM pwm;
 
 unsigned int pauseTime = 200;
 FiveBar fb = FiveBar(10, 10, 10);
-float crossSize = 1;
+double crossSize = 1;
 
 // forward declarations
 void home();
 void penUp();
 void penDown();
-void drawCross(float x, float y);
-void moveTo(float x, float y, boolean penDown);
+void drawCross(double x, double y);
+void moveTo(double x, double y, boolean penDown);
 
 void moveServos(int angleLeft, int angleRight);
-//static float easeInOut(float t, float b, float c, float d);
+//static double easeInOut(double t, double b, double c, double d);
 void testK();
 
 void setup()
@@ -67,8 +67,9 @@ void setup()
       drawCross(i, j);
     }
   }
-
-  /*
+  penUp();
+}
+/*
   Point p1, p2, servos1, servos2;
 
   for (int i = 0; i < 100; i++)
@@ -114,13 +115,13 @@ void setup()
   }
   penUp();
 */
-}
+
 /*
 left ~140...180
 right 0..40?
 */
 
-void moveTo(float x, float y, boolean penDown)
+void moveTo(double x, double y, boolean penDown)
 {
   delay(pauseTime);
   Point p = Point(x, y);
@@ -148,7 +149,7 @@ void moveTo(float x, float y, boolean penDown)
   delay(pauseTime);
 }
 
-void drawCross(float x, float y)
+void drawCross(double x, double y)
 {
   moveTo(x - crossSize, y - crossSize, false);
   moveTo(x + crossSize, y + crossSize, true);
@@ -205,8 +206,8 @@ void moveServos(int angleLeft, int angleRight)
 
 void testK()
 {
-  float x = 5;
-  float y = 15;
+  double x = 5;
+  double y = 15;
 
   FiveBar fb = FiveBar(10, 10, 10);
 

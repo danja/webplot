@@ -4,7 +4,7 @@
 
 // http://www.cplusplus.com/reference/cmath/
 
-FiveBar::FiveBar(float _base, float _proximal, float _distal)
+FiveBar::FiveBar(double _base, double _proximal, double _distal)
 {
     base = _base;         // distance between servos, lc in the paper ^^
     proximal = _proximal; // from each servo to elbow, la ^^
@@ -21,8 +21,8 @@ Point FiveBar::inverseKinematic(Point pen)
     auto G4 = base * base + proximal * proximal - distal * distal + pen.x * pen.x + pen.y * pen.y - 2.0 * base * pen.x;
 
     // out of range defaults
-    float angleL = -1.0;
-    float angleR = -1.0;
+    double angleL = -1.0;
+    double angleR = -1.0;
 
     // 'lump..' is the equation inside the arctan
     //  D1plus etc. are the resulting angles
@@ -46,7 +46,7 @@ Point FiveBar::inverseKinematic(Point pen)
     return Point(angleL, angleR);
 }
 
-float FiveBar::deg(float r)
+double FiveBar::deg(double r)
 {
     return r * (180.0 / 3.141592653589793238463);
 }

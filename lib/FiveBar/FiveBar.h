@@ -6,12 +6,12 @@
 class FiveBar
 {
 public:
-    FiveBar(float base, float proximal, float distal);
+    FiveBar(double base, double proximal, double distal);
     Point inverseKinematic(Point pen);
-    float deg(float r);
+    double deg(double r);
 
 private:
-    float base,
+    double base,
         proximal,
         distal;
 };

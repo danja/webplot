@@ -7,9 +7,9 @@ private:
     //
 
 public:
-    float x, y;
+    double x, y;
     Point() : x(0), y(0) {}
-    Point(float x, float y) : x(x), y(y) {}
+    Point(double x, double y) : x(x), y(y) {}
 };
 
 class Line
