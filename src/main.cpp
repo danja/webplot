@@ -27,7 +27,7 @@ const int slowFactor = 0.01;
 ESP32PWM pwm;
 
 unsigned int pauseTime = 200;
-FiveBar fb = FiveBar(10, 10, 10);
+FiveBar fb = FiveBar(9.6, 12, 12);
 double crossSize = 1;
 
 // forward declarations
@@ -67,6 +67,7 @@ void setup()
       drawCross(i, j);
     }
   }
+
   penUp();
 }
 /*
@@ -147,6 +148,21 @@ void moveTo(double x, double y, boolean penDown)
   servoRight.write(servos.y);
   servoLeft.write(servos.x);
   delay(pauseTime);
+}
+
+// Modeled after the piecewise quadratic
+// y = (1/2)((2x)^2)             ; [0, 0.5)
+// y = -(1/2)((2x-1)*(2x-3) - 1) ; [0.5, 1]
+double ease(double p)
+{
+  if (p < 0.5)
+  {
+    return 2 * p * p;
+  }
+  else
+  {
+    return (-2 * p * p) + (4 * p) - 1;
+  }
 }
 
 void drawCross(double x, double y)
