@@ -46,6 +46,51 @@ Point FiveBar::inverseKinematic(Point pen)
     return Point(angleL, angleR);
 }
 
+// from Kinematic Analysis of Five-Bar Mechanism in Industrial Robotics
+Point FiveBar::inverseKinematic2(Point pen)
+{
+    double l1 = proximal;
+    double l2 = distal;
+    double l3 = distal;
+    double l4 = proximal;
+    double l5 = base;
+
+    double A1 = pen.x;
+    double B1 = pen.y;
+    double C1 = (l1 * l1 - l2 * l2 + pen.x * pen.x + pen.y * pen.y) / (2.0 * l1);
+
+    // out of range defaults
+    double angleL = -1;
+    double angleR = -1;
+
+    if ((A1 * A1 + B1 * B1 - C1 * C1) > 0 && (-A1 - C1) != 0)
+    {
+        double lumpD1minus = (-B1 - sqrt(A1 * A1 + B1 * B1 - C1 * C1)) / (-A1 - C1);
+        double D1minus = 2.0 * atan(lumpD1minus);
+
+        double lumpD1plus = (-B1 + sqrt(A1 * A1 + B1 * B1 - C1 * C1)) / (-A1 - C1);
+        double D1plus = 2.0 * atan(lumpD1plus);
+
+        angleL = deg(D1minus);
+    }
+
+    double A2 = pen.x - l5;
+    double B2 = pen.y;
+    double C2 = (l4 * l4 + l5 * l5 - l3 * l3 - 2.0 * pen.x * l5 + pen.x * pen.x + pen.y * pen.y) / (2.0 * l4);
+
+    if ((A2 * A2 + B2 * B2 - C2 * C2) > 0 && (-A2 - C2) != 0)
+    {
+        double lumpD4minus = (-B2 - sqrt(A2 * A2 + B2 * B2 - C2 * C2)) / (-A2 - C2);
+        double D4minus = 2.0 * atan(lumpD4minus);
+
+        double lumpD4plus = (-B2 + sqrt(A2 * A2 + B2 * B2 - C2 * C2)) / (-A2 - C2);
+        double D4plus = 2.0 * atan(lumpD4plus);
+
+        angleR = deg(D4plus);
+    }
+    return Point(angleL, angleR);
+}
+
 double FiveBar::deg(double r)
 {
     return r * (180.0 / 3.141592653589793238463);
