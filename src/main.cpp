@@ -30,6 +30,9 @@ unsigned int pauseTime = 200;
 FiveBar fb = FiveBar(9.6, 12, 12);
 double crossSize = 1;
 
+int offsetLeft = -32; // degrees off 90
+int offsetRight = 40;
+
 // forward declarations
 void home();
 void penUp();
@@ -37,7 +40,7 @@ void penDown();
 void drawCross(double x, double y);
 void moveTo(double x, double y, boolean penDown);
 
-void moveServos(int angleLeft, int angleRight);
+void moveServos(float angleLeft, float angleRight);
 //static double easeInOut(double t, double b, double c, double d);
 void testK();
 
@@ -60,12 +63,46 @@ void setup()
   servoLeft.attach(GPIO_LEFT, minUs, maxUs);
   servoRight.attach(GPIO_RIGHT, minUs, maxUs);
 
+  // 120 degrees (60 in each direction)
+
+  //  moveServos(90 - 32, 90 + 42);
+
+  /*
+  delay(2000);
+  drawCross(5, 0);
+
+  delay(2000);
+  drawCross(5, 22);
+
+  delay(2000);
+  drawCross(-12, 12);
+
+  delay(2000);
+  drawCross(-10, 19);
+
+  delay(2000);
+  drawCross(22, 12);
+
+  delay(2000);
+  drawCross(15, 20);
+*/
+
+  /*
   for (int i = -10; i < 40; i += 5)
   {
-    for (int j = -20; j < 30; j += 5)
+    for (int j = -30; j < 50; j += 5)
     {
       drawCross(i, j);
     }
+  }
+*/
+  int x = 5;
+  for (int y = -30; y < 50; y += 5)
+  {
+    drawCross(x, y);
+    Serial.print(x);
+    Serial.print(", ");
+    Serial.println(y);
   }
 
   penUp();
@@ -127,15 +164,14 @@ void moveTo(double x, double y, boolean penDown)
   delay(pauseTime);
   Point p = Point(x, y);
   Point servos = fb.inverseKinematic(p);
-  if ((servos.x == -1) || (servos.y == -1))
+  if ((servos.x == -1) && (servos.y == -1))
   {
-    Serial.print("ERROR : ");
-    Serial.print(x);
-    Serial.print(", ");
-    Serial.print(y);
-    Serial.println("-------");
     return;
   }
+  //  Serial.print(x);
+  //  Serial.print(", ");
+  //  Serial.println(y);
+
   if (penDown)
   {
     servoPen.write(PEN_DOWN);
@@ -145,8 +181,8 @@ void moveTo(double x, double y, boolean penDown)
     servoPen.write(PEN_UP);
   }
   delay(pauseTime);
-  servoRight.write(servos.y);
-  servoLeft.write(servos.x);
+  servoLeft.write(servos.x + offsetLeft);
+  servoRight.write(servos.y + offsetRight);
   delay(pauseTime);
 }
 
@@ -216,8 +252,10 @@ void left(int angle)
   angle = 180 - angle;
 }
 
-void moveServos(int angleLeft, int angleRight)
+void moveServos(float angleLeft, float angleRight)
 {
+  servoLeft.write(angleLeft);
+  servoRight.write(angleRight);
 }
 
 void testK()
