@@ -28,10 +28,11 @@ ESP32PWM pwm;
 
 unsigned int pauseTime = 200;
 FiveBar fb = FiveBar(9.6, 12.0, 12.0);
-double crossSize = 1;
+double crossSize = 0.5;
 
-int offsetLeft = -32.0; // degrees off 90
-int offsetRight = 40.0;
+// 100,80
+int offsetLeft = -80; // -54.0; // degrees off 90
+int offsetRight = 65; // 51.0;
 
 // forward declarations
 void home();
@@ -63,29 +64,25 @@ void setup()
 
   // 120 degrees (60 in each direction)
 
-  //  moveServos(90 - 32, 90 + 42);
-
-  for (int i = -10; i < 30; i += 5)
+  for (int i = -2; i < 10; i += 2.5)
   {
-    for (int j = -5; j < 25; j += 5)
+    for (int j = 12; j < 25; j += 2.5)
     {
       drawCross(i, j);
     }
   }
 
   /*
-  int x = 5;
-  for (int y = 0; y < 20; y += 5)
-  {
-    drawCross(x, y);
-    Serial.print(x);
-    Serial.print(", ");
-    Serial.println(y);
-  }
-*/
-  // moveTo(5.0, 20.0, false);
-
   penUp();
+  moveTo(-2, 20, false);
+  delay(1000);
+  moveTo(9, 25, true);
+  moveTo(9.5, 13, true);
+  moveTo(-2, 14, true);
+  penUp();
+  drawCross(5, 13);
+  penUp();
+*/
 }
 
 void moveTo(double x, double y, boolean penDown)
@@ -112,8 +109,7 @@ void moveTo(double x, double y, boolean penDown)
     servoPen.write(PEN_UP);
   }
   delay(pauseTime);
-  servoLeft.write(servos.x + offsetLeft);
-  servoRight.write(servos.y + offsetRight);
+  moveServos(servos.x, servos.y);
   delay(pauseTime);
   Serial.print("angles ");
   Serial.print(servos.x);
@@ -183,6 +179,6 @@ void penUp()
 
 void moveServos(float angleLeft, float angleRight)
 {
-  servoLeft.write(angleLeft);
-  servoRight.write(angleRight);
+  servoLeft.write(angleLeft + offsetLeft);
+  servoRight.write(angleRight + offsetRight);
 }

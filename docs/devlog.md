@@ -1,3 +1,5 @@
+**2022-01-13**
+
 **2021-01-05**
 
 Hardware sorted: beefier servos (MG996R) driving the arms, new design of pen lifter.

@@ -9,6 +9,7 @@ public:
     FiveBar(double base, double proximal, double distal);
     Point inverseKinematic(Point pen);
     Point inverseKinematic2(Point pen);
+    Point inverseKinematic3(Point pen);
     double deg(double r);
 
 private:

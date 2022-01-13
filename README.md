@@ -10,12 +10,6 @@ Primary reference has been [Study and Development of Parallel Robots Based On 5-
 
 _for detailed updates see [devlog](https://github.com/danja/webplot/blob/main/docs/devlog.md)_
 
-**2022-01-05**
+**2022-01-13**
 
-Hardware seems functional, connected to ESP32.
-
-I transcribed the inverse kinematic equations into Python, made a rough plotting function to sanity check. **LINK**
-
-After realising I was mixing degrees and radians (!!!) and discovering I'd missed a '-' sign from one equation, it now seems valid.
-
-Next I need to port that across to C++ for the ESP32, figure out some basic comms to pass commands over serial.
+The microcontroller/drawing bot part of the system is working, to an extent. That extent is currently a disappointingly small area.
