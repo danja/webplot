@@ -31,15 +31,15 @@ There are (at least) three factors limiting the area :
 2. the physical limits of the arms etc.
 3. the behaviour of the servos
 
-1/ Early experiments made me think there was something trivially wrong with the equations I was using, like a scaling factor. The sums are very twisty so rather than attempting to derive the equations myself I found a completely different version and transcribed those into code to compare. The results were near-enough identical.
+**1/** Early experiments made me think there was something trivially wrong with the equations I was using, like a scaling factor. The sums are very twisty so rather than attempting to derive the equations myself I found a completely different version and transcribed those into code to compare. The results were near-enough identical.
 
-2/ Pushing the arms around (with power off) produced the image above
+**2/** Pushing the arms around (with power off) produced the upper image above
 
-3/ Initially I was using a power supply that wasn't remotely capable of properly moving the servos. After realising this I put together the supply described below.
+**3/** Initially I was using a power supply that wasn't remotely capable of properly moving the servos. After realising this I put together the supply described below.
 I'd naively assumed the servos would have a 180° sweep so initially lined up them up at 90° from the baseline after giving them a 90° location. **Bad move.**
 The MG996R servos only have a sweep of ~120° (90° +/- 60°). After measuring x,y and angle values manually I found that the usable area I was after would require a sweep of around 80°. So I attemped to align the servo's 90° direction with the midpoints of the measured angles. There is still quite a discrepancy between the predicted and actual position, so I may revisit this later.
 
-Regarding accuracy, I get the impression that within the useful area, it should be possible to draw recognisable things. There will be some distortion due to the position of the pen relative to the position used in the calculations. This should be fixable in software (I'm unlikely to bother). More significant at the moment is the mechanical instability of the joints - there's a bit of wobble. Fixing this properly would require a whole new build (ideally with better tooling). But it's obvious in operation that the servos move quite violently causing shake. I'm pretty sure I can mitigate this by translating movements into smaller stepwise changes separated by short delays, or perhaps more sophisticated [easing](http://robertpenner.com/easing/) (as used in animation).
+Regarding accuracy, I get the impression that within the useful area, it should be possible to draw recognisable things. There will be some distortion due to the position of the pen relative to the position used in the calculations, but in the drawing above what should be a grid of Xs isn't too far off. This should be fixable in software (I'm unlikely to bother). More significant at the moment is the mechanical instability of the joints, there's a bit of wobble, very evident in this small drawing area. Fixing this properly would require a whole new build (ideally with better tooling). But it's obvious in operation that the servos move quite violently causing shake. I'm pretty sure I can mitigate this by translating movements into smaller stepwise changes separated by short delays, or perhaps more sophisticated [easing](http://robertpenner.com/easing/) (as used in animation).
 
 ## Next Steps
 
@@ -73,10 +73,10 @@ From the [MG996R servo datasheet](https://github.com/danja/webplot/raw/main/docs
 
 I had an old (laptop?) switch mode supply offering 12v @ 3A. I also have a bunch of LM317s in TO-220 packages that can potentially handle up to about 2A. When it's not tethered to the computer the ESP32 will also need a 3.3v supply, negligible current.
 
-So from the components I had at hand I put this together :
+So from the components I had at hand I put this together on stripboard, with a scrap of aluminium for the heatsink on the 6v side :
 
 ![PSU schematic](https://github.com/danja/webplot/raw/main/docs/media/psu2.jpeg)
 
-The circuit is essentially lifted from the [LM317 datasheet](https://github.com/danja/webplot/raw/main/docs/reference/lm317-n.pdf), values tweaked a little.
+The circuit is essentially lifted from the [LM317 datasheet](https://github.com/danja/webplot/raw/main/docs/reference/lm317-n.pdf), values tweaked a little. The LED on the output of the 6v should act as a crude indicator of current overload.
 
 ![PSU physical](https://github.com/danja/webplot/raw/main/docs/media/psu1.jpeg)
