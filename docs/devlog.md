@@ -1,5 +1,9 @@
 **2022-01-13**
 
+https://eightytwo.net/blog/running-ulisp-on-an-esp32/
+
+https://github.com/technoblogy/ulisp-esp
+
 **2021-01-05**
 
 Hardware sorted: beefier servos (MG996R) driving the arms, new design of pen lifter.

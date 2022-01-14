@@ -12,6 +12,8 @@ Primary reference has been [Study and Development of Parallel Robots Based On 5-
 
 _for detailed updates see [devlog](https://github.com/danja/webplot/blob/main/docs/devlog.md)_
 
+There are some Python/Jupyter Notebook simulations in the [sums](https://github.com/danja/webplot/tree/main/sums) directory.
+
 **2022-01-13**
 
 The microcontroller/drawing bot part of the system is working, to an extent. That extent is currently a disappointingly small area. The theoretical drawing area for the configuration I'm using is shown here:
